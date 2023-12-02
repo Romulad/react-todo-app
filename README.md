@@ -1,17 +1,19 @@
 # Simple Todo App using React Js
 
-### You can :
+
+## You can :
     
-    Create a task
+### Create a task
 
-    Edit a task
+### Edit a task
 
-    View the list of all tasks
+### View the list of all tasks
 
-    Make a task as completed
+### Make a task as completed
 
-    Filter the tasks : all, completed or active tasks 
+### Filter the tasks : all, completed or active tasks 
 
-    Remove a task
+### Remove a task
+
 
 
