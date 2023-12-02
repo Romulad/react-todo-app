@@ -1,5 +1,6 @@
 # Simple Todo App using React Js
 
+
 ## You can :
     
 ### Create a task
@@ -13,5 +14,6 @@
 ### Filter the tasks : all, completed or active tasks 
 
 ### Remove a task
+
 
 
