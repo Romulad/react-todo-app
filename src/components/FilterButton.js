@@ -6,7 +6,7 @@ export function FilterButton(props){
           type="button" 
           className="btn toggle-btn" 
           aria-pressed={props.isActive}
-          onClick={(e)=>{props.activeTasks(props.name)}}>
+          onClick={()=>{props.activeTasks(props.name)}}>
           <span className="visually-hidden">Show </span>
           <span>{props.name}</span>
           <span className="visually-hidden"> tasks</span>

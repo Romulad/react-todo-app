@@ -1,12 +1,35 @@
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { checkIput, ErrorContainer, errorsObj } from "./Form";
 
-function Todo(props){
+function usePrevious(value) {
+    /* To keep track of the previous value */
+    const ref = useRef(false);
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+}
+
+function Todo(props){ 
+    // state : isEditing => true? (show the editTemplate) or false(show the viewTemplate)
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState("");
     const [error, setError] = useState("");
+    const editFieldRef = useRef(null);
+    const editButtonRef = useRef(null);
+    const wasEditing = usePrevious(isEditing);
 
+    useEffect(() => {
+        if (!wasEditing && isEditing) {
+          editFieldRef.current.focus();
+        }else if(wasEditing && !isEditing){
+            editButtonRef.current.focus();
+        }
+        
+    }, [isEditing, wasEditing]);
+    
     function handleSubmit(e){
+        /* Handle edit view form submit  */
         e.preventDefault();
         let inputIsValid = checkIput(newName, props.tasks);
         if(!inputIsValid[0]){
@@ -21,6 +44,7 @@ function Todo(props){
     };
 
     function handleDelete(){
+        /* Delete a task */
         let result = window.confirm(`Do you really want to delete the task "${props.name}"?`);
         if(result){
             props.delTask(props.id);
@@ -28,6 +52,7 @@ function Todo(props){
     };
 
     const editingTemplate = (
+        /* Template to edit a task */
         <li className="todo">
             <form className="stack-small" onSubmit={handleSubmit}>
             <div className="form-group">
@@ -41,8 +66,9 @@ function Todo(props){
                     placeholder={`${props.name}`}
                     value={newName}
                     onChange={(e)=>{setNewName(e.target.value)}}
+                    ref={editFieldRef}
                 />
-                {error?<ErrorContainer text={errorsObj[error]} />:null}
+                {error?<ErrorContainer text={errorsObj[error]} />:null} {/* Show an error message */}
             </div>
             <div className="btn-group">
                 <button 
@@ -65,6 +91,7 @@ function Todo(props){
       );
 
       const viewTemplate = (
+        /* Show a task */
         <li className="todo">
             <div className="stack-small">
                 <div className="c-cb">
@@ -84,6 +111,7 @@ function Todo(props){
                         type="button" 
                         className="btn"
                         onClick={()=>{setEditing(true)}}
+                        ref={editButtonRef}
                     >
                     Edit <span className="visually-hidden">{props.name}</span>
                     </button>
@@ -98,10 +126,10 @@ function Todo(props){
             </div>
         </li>
       );
-
+      
     return (
-        isEditing?editingTemplate:viewTemplate
-    );
+        isEditing ? editingTemplate : viewTemplate
+    ); 
 }
 
 export default Todo;

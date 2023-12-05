@@ -1,14 +1,57 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Todo from "./components/Todo";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 
 
+const returnTaskId = (taskName) =>{
+  return `todo-${taskName}`;
+}
+
+const storeReturnTasks = (taskName="", status="") =>{
+  if(taskName && status)
+    localStorage.setItem(taskName, status);
+
+  let todo = [];
+  for (let i = 0; i < localStorage.length; i++){
+    let key = localStorage.key(i);
+    let value = localStorage.getItem(key) === "false" ? false : true;
+    todo.push({name:key, completed:value, id:returnTaskId(key)});
+  };
+
+  return todo;
+}
+
+const updateTaskStatus = (taskId) =>{
+  let taskName = taskId.split("-")[1];
+  let taskStatus = localStorage.getItem(taskName) === "false" ? "true" : "false";
+  localStorage.setItem(taskName, taskStatus);
+}
+
+const updateTaskName = (newName, taskId) =>{
+  let taskName = taskId.split("-")[1];
+  let taskStatus = localStorage.getItem(taskName);
+  localStorage.setItem(newName, taskStatus);
+  localStorage.removeItem(taskName);
+}
+
+const deleteTask = (taskId) =>{
+  let taskName = taskId.split("-")[1];
+  localStorage.removeItem(taskName);
+}
+
+
 function App() {
   const [tasks, setTask] = useState([]);
   const [filter, setTaskFilter] = useState("All");
+  const headingRef = useRef(null);
+
+  useEffect(()=>{
+    setTask(storeReturnTasks()); 
+  }, []) // After first render
 
   const trackTaskStatus = (taskId) => {
+    /* Update task status */
     let updateTask = tasks.map((task)=>{
       if(task.id === taskId){
         task.completed = !task.completed;
@@ -16,30 +59,39 @@ function App() {
       };
       return task;
     });
-    setTask(updateTask);
+    updateTaskStatus(taskId); // User window.localStorage
+    setTask(updateTask); // React state
   };
   
   function addTask(name){
-    let taskId = `todo-${name}`;
+    /* Add new task */
+    let taskId = returnTaskId(name);
     let taskObj = {name:name, completed:false, id:taskId};
-    let totalTasks = [taskObj , ...tasks];
-    setTask(totalTasks);
+    let totalTasks = [...tasks, taskObj];
+    storeReturnTasks(name, "false"); // Save in the window.localStorage
+    setTask(totalTasks); // React state
   };
 
   function editTask(newName, taskId){
+    /* Change task name */
     let updateTasks = tasks.map((task)=>{
       if(taskId === task.id){
         task.name = newName;
+        task.id = returnTaskId(newName);
         return task;
       };
       return task;
     });
-    setTask(updateTasks);
+    updateTaskName(newName, taskId) // window.localStorage
+    setTask(updateTasks); // State
   }
 
   function delTask(taskId){
+    /* Deleate a task */
     let updateTasks = tasks.filter(task => task.id !== taskId);
-    setTask(updateTasks);
+    deleteTask(taskId); // window.localStorage
+    setTask(updateTasks); // State
+    headingRef.current.focus(); // Focus on the heading
   };
 
   const filterState = {
@@ -58,7 +110,8 @@ function App() {
         />
       )
   );
-    
+  
+  /* Filter all tasks by the current filter tag before render */
   const filterTasks = tasks.filter(filterState[filter])
   const tasksList = filterTasks
   .map((task) => (
@@ -82,15 +135,20 @@ function App() {
 
   return (
     <div className="todoapp stack-large">
-      <h1>SimpleTodoApp</h1>
       <Form 
         addTask={addTask}
         tasks={tasks}
+        setTask={setTask}
       />
       <div className="filters btn-group stack-exception">
         {filterButtons}
       </div>
-      <h2 id="list-heading">{taskHeading}</h2>
+      <h2 
+        id="list-heading"
+        tabIndex="-1"
+        ref={headingRef}>
+        {taskHeading}
+      </h2>
       <ul
         role="list"
         className="todo-list stack-large stack-exception"
