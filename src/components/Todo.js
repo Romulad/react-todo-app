@@ -92,7 +92,8 @@ function Todo(props){
 
       const viewTemplate = (
         /* Show a task */
-        <li className="todo">
+        <li 
+            className="todo">
             <div className="stack-small">
                 <div className="c-cb">
                     <input

@@ -50,8 +50,11 @@ function Form(props){
 
     function handleDclick(e){
         e.preventDefault();
-        props.setTask([]);
-        localStorage.clear();
+        if(window.confirm('Do you really want to delete all tasks?')){
+            props.setTask([]);
+            localStorage.clear();  
+        };
+        
     };
 
     let deleDisabled = (
@@ -72,13 +75,15 @@ function Form(props){
     );
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form 
+            onSubmit={handleSubmit}
+            style={{marginTop : 10}}>
             <h2 className="label-wrapper">
             <label 
                 htmlFor="new-todo-input" 
                 className="label__lg" 
                 style={{
-                    marginBottom : 20,
+                    marginBottom : 25,
                     fontSize : 20
                 }}>
                 What needs to be done today?

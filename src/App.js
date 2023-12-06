@@ -134,19 +134,24 @@ function App() {
   );
 
   return (
-    <div className="todoapp stack-large">
+    <div 
+      className="todoapp stack-large"
+      style={{paddingTop : 15, paddingBottom : 15}}>
       <Form 
         addTask={addTask}
         tasks={tasks}
         setTask={setTask}
       />
-      <div className="filters btn-group stack-exception">
+      <div 
+        className="filters btn-group stack-exception"
+        style={{marginBottom : 45}}>
         {filterButtons}
       </div>
       <h2 
         id="list-heading"
         tabIndex="-1"
-        ref={headingRef}>
+        ref={headingRef}
+        style={{marginTop : 0, marginBottom : 30, borderRadius : "0.2rem"}}>
         {taskHeading}
       </h2>
       <ul

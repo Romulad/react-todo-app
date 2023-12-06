@@ -225,6 +225,12 @@ body {
   }
 }
 /* Todo item styles */
+.todo-list > li:not(:last-child){
+  margin-bottom: 40px;
+}
+.todo-list:last-child{
+  margin-bottom: 25px;
+}
 .todo {
   display: flex;
   flex-direction: row;

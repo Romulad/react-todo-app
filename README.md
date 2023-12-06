@@ -15,5 +15,7 @@
 
 ### Remove a task
 
+PS : After planning my month I use this simple app to track daily actions
+
 
 
