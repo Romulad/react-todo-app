@@ -1,23 +1,17 @@
 import React, {useState, useRef, useEffect} from "react";
 import { checkIput, ErrorContainer, errorsObj } from "./Form";
 
-function usePrevious(value) {
-    /* To keep track of the previous value */
-    const ref = useRef(false);
-    useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-}
+
 
 function Todo(props){ 
     // state : isEditing => true? (show the editTemplate) or false(show the viewTemplate)
     const [isEditing, setEditing] = useState(false);
+    const [wasEditing, setWasEditing] = useState(false);
     const [newName, setNewName] = useState("");
     const [error, setError] = useState("");
     const editFieldRef = useRef(null);
     const editButtonRef = useRef(null);
-    const wasEditing = usePrevious(isEditing);
+
 
     useEffect(() => {
         if (!wasEditing && isEditing) {
@@ -64,7 +58,7 @@ function Todo(props){
                     className="todo-text" 
                     type="text" 
                     placeholder={`${props.name}`}
-                    value={newName}
+                    value={props.name}
                     onChange={(e)=>{setNewName(e.target.value)}}
                     ref={editFieldRef}
                 />
@@ -74,7 +68,7 @@ function Todo(props){
                 <button 
                 type="button" 
                 className="btn todo-cancel"
-                onClick={()=>setEditing(false)}>
+                onClick={()=>{setEditing(false); setWasEditing(true)}}>
                     Cancel
                     <span className="visually-hidden">renaming {props.name}</span>
                 </button>
@@ -111,7 +105,7 @@ function Todo(props){
                     <button 
                         type="button" 
                         className="btn"
-                        onClick={()=>{setEditing(true)}}
+                        onClick={()=>{setEditing(true); setWasEditing(false)}}
                         ref={editButtonRef}
                     >
                     Edit <span className="visually-hidden">{props.name}</span>

@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App do not change 1`] = `
+<div
+  className="todoapp stack-large"
+  style={
+    Object {
+      "paddingBottom": 15,
+      "paddingTop": 15,
+    }
+  }
+>
+  <form
+    onSubmit={[Function]}
+    style={
+      Object {
+        "marginTop": 10,
+      }
+    }
+  >
+    <h2
+      className="label-wrapper"
+    >
+      <label
+        className="label__lg"
+        htmlFor="new-todo-input"
+        style={
+          Object {
+            "fontSize": 20,
+            "marginBottom": 25,
+          }
+        }
+      >
+        What needs to be done today?
+      </label>
+    </h2>
+    <input
+      autoComplete="off"
+      className="input input__lg"
+      id="new-todo-input"
+      name="text"
+      onChange={[Function]}
+      style={
+        Object {
+          "borderRadius": "0.25rem",
+        }
+      }
+      type="text"
+      value=""
+    />
+    <div
+      className="btn-group"
+    >
+      <button
+        className="btn btn__primary"
+        type="submit"
+      >
+        New task
+      </button>
+      <button
+        className="btn btn__danger"
+        disabled={true}
+        style={
+          Object {
+            "cursor": "not-allowed",
+          }
+        }
+      >
+        Delete all tasks
+      </button>
+    </div>
+  </form>
+  <div
+    className="filters btn-group stack-exception"
+    style={
+      Object {
+        "marginBottom": 45,
+      }
+    }
+  >
+    <button
+      aria-pressed="true"
+      className="btn toggle-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="visually-hidden"
+      >
+        Show 
+      </span>
+      <span>
+        All
+      </span>
+      <span
+        className="visually-hidden"
+      >
+         tasks
+      </span>
+    </button>
+    <button
+      aria-pressed="false"
+      className="btn toggle-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="visually-hidden"
+      >
+        Show 
+      </span>
+      <span>
+        Active
+      </span>
+      <span
+        className="visually-hidden"
+      >
+         tasks
+      </span>
+    </button>
+    <button
+      aria-pressed="false"
+      className="btn toggle-btn"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="visually-hidden"
+      >
+        Show 
+      </span>
+      <span>
+        Completed
+      </span>
+      <span
+        className="visually-hidden"
+      >
+         tasks
+      </span>
+    </button>
+  </div>
+  <h2
+    id="list-heading"
+    style={
+      Object {
+        "borderRadius": "0.2rem",
+        "marginBottom": 30,
+        "marginTop": 0,
+      }
+    }
+    tabIndex="-1"
+  >
+    0 Task
+  </h2>
+  <ul
+    aria-labelledby="list-heading"
+    className="todo-list stack-large stack-exception"
+    role="list"
+  />
+</div>
+`;

@@ -1,6 +1,7 @@
 import React from "react";
 
-export function FilterButton(props){
+
+function FilterButton(props){
     return(
         <button 
           type="button" 

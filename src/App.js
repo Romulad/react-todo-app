@@ -4,17 +4,19 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 
 
-const returnTaskId = (taskName) =>{
+export const returnTaskId = (taskName) =>{
   return `todo-${taskName}`;
 }
 
-const storeReturnTasks = (taskName="", status="") =>{
+export const storeReturnTasks = (taskName="", status="") =>{
   if(taskName && status)
     localStorage.setItem(taskName, status);
 
   let todo = [];
   for (let i = 0; i < localStorage.length; i++){
+    // Key represent the task name
     let key = localStorage.key(i);
+    // The value is the task status
     let value = localStorage.getItem(key) === "false" ? false : true;
     todo.push({name:key, completed:value, id:returnTaskId(key)});
   };
@@ -22,20 +24,20 @@ const storeReturnTasks = (taskName="", status="") =>{
   return todo;
 }
 
-const updateTaskStatus = (taskId) =>{
+export const updateTaskStatus = (taskId) =>{
   let taskName = taskId.split("-")[1];
   let taskStatus = localStorage.getItem(taskName) === "false" ? "true" : "false";
   localStorage.setItem(taskName, taskStatus);
 }
 
-const updateTaskName = (newName, taskId) =>{
+export const updateTaskName = (newName, taskId) =>{
   let taskName = taskId.split("-")[1];
   let taskStatus = localStorage.getItem(taskName);
   localStorage.setItem(newName, taskStatus);
   localStorage.removeItem(taskName);
 }
 
-const deleteTask = (taskId) =>{
+export const deleteTask = (taskId) =>{
   let taskName = taskId.split("-")[1];
   localStorage.removeItem(taskName);
 }

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 export const errorsObj = {
     "Invalid name" : "Enter a valid task name",
-    "Same name" : "Task with this name already exist"
+    "Same name" : "Task with this name already exists"
 };
 
 export const checkSameTask = (name, tasks) => {
