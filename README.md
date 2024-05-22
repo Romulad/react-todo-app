@@ -22,7 +22,7 @@ and you can run it with `docker run` command.
 on your system and Docker client is accessible from your command line
 - Then run this command:
 ```bash
-docker run --name todo-app -p 3000:3000 romulad/todo-app:0.0.1
+docker run --name todo-app -p 3000:3000 romulad/todo-app
 ```
 And you're done! visit `localhost:3000` to view the app.
 
