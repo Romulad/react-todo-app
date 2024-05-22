@@ -54,4 +54,4 @@ In your terminal :
   ```bash
   npm start
   ```
-And you're done! visit `localhost:3000` to view the app.
+And you're done! visit `localhost:3000` to view the app
