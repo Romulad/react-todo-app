@@ -57,12 +57,11 @@ function Todo(props){
                     id={props.id} 
                     className="todo-text" 
                     type="text" 
-                    placeholder={`${props.name}`}
-                    value={props.name}
+                    placeholder={props.name}
                     onChange={(e)=>{setNewName(e.target.value)}}
                     ref={editFieldRef}
                 />
-                {error?<ErrorContainer text={errorsObj[error]} />:null} {/* Show an error message */}
+                {error && <ErrorContainer text={errorsObj[error]} />} {/* Show an error message */}
             </div>
             <div className="btn-group">
                 <button 
@@ -75,7 +74,8 @@ function Todo(props){
 
                 <button 
                 type="submit" 
-                className="btn btn__primary todo-edit">
+                className="btn btn__primary todo-edit"
+                onClick={handleSubmit}>
                     Save
                     <span className="visually-hidden">new name for {props.name}</span>
                 </button>

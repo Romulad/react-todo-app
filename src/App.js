@@ -113,7 +113,7 @@ function App() {
       )
   );
   
-  /* Filter all tasks by the current filter tag before render */
+  /* Filter all tasks by the current filter tag before rendering */
   const filterTasks = tasks.filter(filterState[filter])
   const tasksList = filterTasks
   .map((task) => (
